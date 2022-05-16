@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<div class="container my-3">
+<br>
+    <h2 class="border-bottom py-2"> MY {{ product.name }}
+    </h2>
+    <div class="badge badge-dark p-2">
+        가격 : {{ product.price }} (원)
+    </div>
+    <div class="badge badge-dark p-2">
+        사용기간 : {{ product.use_period }}
+    </div>
+    <div class="badge badge-dark p-2">
+        지점 : {{ product.place }}
+    </div>
+    <div class="badge badge-secondary p-2">
+        판매자 : {{ product.author }}
+    </div>
+    <div class="badge badge-secondary p-2">
+        사전등록일 : {{ product.create_date }}
+    </div>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">
+            {{ product.content }}
+            {% for img in product.photo_set.all%}
+                    <img src="{{ img.photo.url }}" width="75%">
+            {% endfor %}
+            </div>
+            <div class="d-flex justify-content-end">
+                {% if request.user == product.author or request.user == product.reservation%}
+                <div class="badge badge-danger p-2">
+                    인증 번호 : {{ product.key }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+         {% if request.user == product.author %}
+            <div>
+                <a href="{% url 'matchat:product_modify' product.id  %}"
+                   class="btn btn-sm btn-secondary">수정</a>
+                <a href="#" class="delete btn btn-sm btn-danger"
+                   data-uri="{% url 'matchat:product_delete' product.id  %}">삭제</a>
+            </div>
+            {% endif %}
+    </div>
+<a href="{% url 'matchat:my' %}" class="btn btn-primary">MY 목록</a>
+
+{% endblock %}
+{% block script %}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $(".delete").on('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = $(this).data('uri');
+        }
+    });
+});
+</script>
+{% endblock %}
