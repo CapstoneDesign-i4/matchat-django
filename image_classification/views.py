@@ -9,6 +9,9 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
 from .forms import ImageUploadForm
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
 
 # Create your views here.
 
@@ -28,6 +31,8 @@ def get_prediction(image_bytes):
     data = results.pandas().xyxy[0].to_json(orient="records")
     return data
 
+
+@method_decorator(csrf_exempt)
 def index(request):
     image_uri = None
     predicted_label = None
