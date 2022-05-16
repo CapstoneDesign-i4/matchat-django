@@ -1,5 +1,8 @@
+
+
 from django.db import models
 from django.contrib.auth.models import User
+
 
 def directory_path(instance, filename):
     return f'{instance.product.author}/{instance.product.name}/{filename}'
