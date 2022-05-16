@@ -10,7 +10,7 @@ from decouple import config
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY') # Here
 DEBUG = config('DEBUG', cast=bool) # Here
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ALLOWED_HOSTS = [
     "http://ec2-3-39-94-66.ap-northeast-2.compute.amazonaws.com",
@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'api_same_check',
     'api_finish',
     'rest_framework',
-    'image_classification',
+    'image_classification.apps.ImageClassificationConfig'
 ]
 
 MIDDLEWARE = [
