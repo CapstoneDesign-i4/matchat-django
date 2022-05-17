@@ -42,7 +42,7 @@ def index(request):
             image = request.FILES.get("image")
             image_bytes = image.read()
             # convert and pass the image as base64 string to avoid storing it to DB or filesystem
-            encoded_img = base64.b64encode(image_bytes).decode('ascii')
+            encoded_img = base64.b64encode(image_bytes).decode('utf-8')
             image_uri = 'data:%s;base64,%s' % ('image/jpeg', encoded_img)
             # get predicted label with previously implemented PyTorch function
             try:
@@ -55,7 +55,7 @@ def index(request):
             image_bytes = urllib.request.urlopen(url).read()
 
             # convert and pass the image as base64 string to avoid storing it to DB or filesystem
-            encoded_img = base64.b64encode(image_bytes).decode('ascii')
+            encoded_img = base64.b64encode(image_bytes).decode('utf-8')
             image_uri = 'data:%s;base64,%s' % ('image/jpeg', encoded_img)
             # get predicted label with previously implemented PyTorch function
             try:
