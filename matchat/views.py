@@ -16,6 +16,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from random import randint
 
+from image_classification.views import index_direct
+
 
 from django.http import HttpResponse, JsonResponse
 from django.views import templates
@@ -98,8 +100,7 @@ def my_detail(request, product_id):
 def detect_photo(img, product):
     img_str = str(img)
     img_url = "http://ec2-3-39-94-66.ap-northeast-2.compute.amazonaws.com/media/" + str(product.author) + "/" + str(product.name) + "/" + img_str
-    data = {"url": img_url}
-    res = requests.post("http://ec2-3-39-94-66.ap-northeast-2.compute.amazonaws.com/predict", data=data).json()
+    res = index_direct(img_url)
     return res
 
 
