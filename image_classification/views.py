@@ -68,4 +68,4 @@ def index_direct(url):
         predicted_result = get_prediction(image_bytes)
     except RuntimeError as re:
         print(re)
-    return HttpResponse(predicted_result)
+    return predicted_result
