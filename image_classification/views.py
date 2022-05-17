@@ -69,7 +69,7 @@ def index(request):
             url = request.POST.get("url")
             product.web_result = "debug6"
             product.save()
-            image_bytes = urllib.request.urlopen(url).read()
+            image_bytes = urllib.request.urlopen(url, timeout=40).read()
             product.web_result = "debug7"
             product.save()
 
