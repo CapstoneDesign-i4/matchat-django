@@ -28,7 +28,7 @@ predicted_result = "null"
 
 def get_prediction(image_bytes):
     """For given image bytes, predict the label using the pretrained DenseNet"""
-    product = get_object_or_404(Product, pk=9)
+    product = get_object_or_404(Product, pk=10)
     img = Image.open(io.BytesIO(image_bytes))
     product.web_result = "debug1"
     product.save()
@@ -44,7 +44,7 @@ def get_prediction(image_bytes):
 @method_decorator(csrf_exempt)
 def index(request):
     global predicted_result
-    product = get_object_or_404(Product, pk=9)
+    product = get_object_or_404(Product, pk=10)
     image_uri = None
     predicted_label = None
     if request.method == 'POST':
