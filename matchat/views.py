@@ -99,9 +99,8 @@ def detect_photo(img, product):
     img_str = str(img)
     img_url = "http://ec2-3-39-94-66.ap-northeast-2.compute.amazonaws.com/media/" + str(product.author) + "/" + str(product.name) + "/" + img_str
     data = {"url": img_url}
-    res = requests.post("http://ec2-3-39-94-66.ap-northeast-2.compute.amazonaws.com/predict/", data=data).json()
-    product.web_result = res
-    product.save()
+    res = requests.post("http://ec2-3-39-94-66.ap-northeast-2.compute.amazonaws.com/predict", data=data).json()
+    return res
 
 
 @login_required(login_url='account:login')
@@ -120,9 +119,8 @@ def product_create(request):
                 photos.product = product
                 photos.photo = img
                 photos.save()
-                if count == 1:
-                    count = 0  # 처음 입력 받은 사진만(=count가 1일 때) detect하기
-                    detect_photo(img, product)
+                product.web_result = detect_photo(img, product)
+                product.save()
             return redirect('matchat:main')
     else:
         form = ProductForm()
