@@ -7,6 +7,8 @@ import torch
 from PIL import Image
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 from .forms import ImageUploadForm
 
@@ -27,6 +29,7 @@ def get_prediction(image_bytes):
     data = results.pandas().xyxy[0].to_json(orient="records")
     return data
 
+@method_decorator(csrf_exempt)
 def index(request):
     predicted_result = None
     image_uri = None
