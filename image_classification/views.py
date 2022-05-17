@@ -61,6 +61,7 @@ def index(request):
                 print(re)
             return HttpResponse(predicted_result)
         product.web_result = "debug4"
+        product.web_result = request.POST.get("url")
         product.save()
         if request.POST.get("url"):
             product.web_result = "debug5"
