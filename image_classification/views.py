@@ -49,6 +49,19 @@ def index(request):
             except RuntimeError as re:
                 print(re)
             return HttpResponse(predicted_result)
+        if request.POST.get("url"):
+            url = request.POST.get("url")
+            image_bytes = urllib.request.urlopen(url).read()
+
+            # convert and pass the image as base64 string to avoid storing it to DB or filesystem
+            encoded_img = base64.b64encode(image_bytes).decode('ascii')
+            image_uri = 'data:%s;base64,%s' % ('image/jpeg', encoded_img)
+            # get predicted label with previously implemented PyTorch function
+            try:
+                predicted_result = get_prediction(image_bytes)
+            except RuntimeError as re:
+                print(re)
+            return HttpResponse(predicted_result)
     else:
         # in case of GET: simply show the empty form for uploading images
         form = ImageUploadForm()
@@ -56,16 +69,3 @@ def index(request):
     return render(request, 'image_classification/index.html')
 
 
-@method_decorator(csrf_exempt)
-def index_direct(url):
-    predicted_result = None
-    image_bytes = urllib.request.urlopen(url).read()
-    # convert and pass the image as base64 string to avoid storing it to DB or filesystem
-    encoded_img = base64.b64encode(image_bytes).decode('ascii')
-    image_uri = 'data:%s;base64,%s' % ('image/jpeg', encoded_img)
-    # get predicted label with previously implemented PyTorch function
-    try:
-        predicted_result = get_prediction(image_bytes)
-    except RuntimeError as re:
-        print(re)
-    return predicted_result
