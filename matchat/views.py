@@ -69,7 +69,7 @@ def detail(request, product_id):
         "상품 가격은 " + product.price + "원 입니다.",
         "수령할 위치는 " + product.place + "입니다.",
         "상세 설명:" + product.content,
-        "https://ifh.cc/g/mO5qoo.jpg",
+        product.kiosk_photo,
         "사용 기간은 " + product.use_period + "입니다.",
         product.name,
         "판매자 이름은 " + str(product.author) + "입니다."
