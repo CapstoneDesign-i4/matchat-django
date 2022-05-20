@@ -47,6 +47,7 @@ def index(request):
             return HttpResponse(predicted_result)
         if request.POST.get("url"):
             url = request.POST.get("url")
+            return HttpResponse(url)
             image_bytes = urllib.request.urlopen(url).read()
             try:
                 predicted_result = get_prediction(image_bytes)
