@@ -97,7 +97,7 @@ def my_detail(request, product_id):
 
 def detect_photo(img, product):
     #img_str = str(img)
-    TEST_IMG = "http://ec2-3-39-141-76.ap-northeast-2.compute.amazonaws.com/media/admin/test444/t4_Xeyhve0.jpg"
+    TEST_IMG = "http://ec2-3-39-94-66.ap-northeast-2.compute.amazonaws.com/media/admin/tte/22.jpg"
     res = requests.post("http://ec2-15-164-129-198.ap-northeast-2.compute.amazonaws.com:5000/predict", files={"url": TEST_IMG}).json()
     return res[0]['name']
 
