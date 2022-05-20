@@ -105,7 +105,6 @@ def detect_photo(img, product):
 
 @login_required(login_url='account:login')
 def product_create(request):
-    count = 1
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():

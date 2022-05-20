@@ -40,10 +40,6 @@ def index(request):
         if request.FILES.get("image"):
             image = request.FILES.get("image")
             image_bytes = image.read()
-            # convert and pass the image as base64 string to avoid storing it to DB or filesystem
-            encoded_img = base64.b64encode(image_bytes).decode('ascii')
-            image_uri = 'data:%s;base64,%s' % ('image/jpeg', encoded_img)
-            # get predicted label with previously implemented PyTorch function
             try:
                 predicted_result = get_prediction(image_bytes)
             except RuntimeError as re:
@@ -52,11 +48,6 @@ def index(request):
         if request.POST.get("url"):
             url = request.POST.get("url")
             image_bytes = urllib.request.urlopen(url).read()
-
-            # convert and pass the image as base64 string to avoid storing it to DB or filesystem
-            encoded_img = base64.b64encode(image_bytes).decode('ascii')
-            image_uri = 'data:%s;base64,%s' % ('image/jpeg', encoded_img)
-            # get predicted label with previously implemented PyTorch function
             try:
                 predicted_result = get_prediction(image_bytes)
             except RuntimeError as re:
