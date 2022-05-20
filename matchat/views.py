@@ -100,7 +100,7 @@ def detect_photo(img, product):
     img_url = "http://ec2-3-39-94-66.ap-northeast-2.compute.amazonaws.com/media/" + str(product.author) + "/" + str(product.name) + "/" + img_str
 
     res = requests.post("http://ec2-15-164-129-198.ap-northeast-2.compute.amazonaws.com:5000/predict", files={"url": img_url}).json()
-    return res
+    return res[0]['name']
 
 
 @login_required(login_url='account:login')
