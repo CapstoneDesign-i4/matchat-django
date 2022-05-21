@@ -97,7 +97,7 @@ def my_detail(request, product_id):
 
 def detect_photo(img, product):
     #img_str = str(img)
-    TEST_IMG = "http://ec2-3-39-94-66.ap-northeast-2.compute.amazonaws.com/media/admin/test2/22.jpg"
+    TEST_IMG = "http://ec2-3-39-141-76.ap-northeast-2.compute.amazonaws.com/media/admin/test444/22.jpg" # 기존 서버에 있는 이미지
     res = requests.post("http://ec2-15-164-129-198.ap-northeast-2.compute.amazonaws.com:5000/predict", files={"url": TEST_IMG}).json()
     return res[0]['name']
 
