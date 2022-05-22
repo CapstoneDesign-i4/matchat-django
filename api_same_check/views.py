@@ -32,6 +32,9 @@ class Result(APIView): # 없는 인증번호를 치면 'status : 2' 리턴
 
             # web_result == kiosk_result 이면 1 반환, 아니면 0 반환
             if product.web_result == product.kiosk_result:
+                # 사전등록한 상품과 동일한 상품을 등록했다면 state 변경
+                product.state = '1'
+                product.save()
                 data = {'status': '1'}
                 return Response(data)
             else:
